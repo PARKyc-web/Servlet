@@ -1,4 +1,4 @@
-package com.edu;
+package com.edu.common;
 
 import lombok.Getter;
 import lombok.Setter;

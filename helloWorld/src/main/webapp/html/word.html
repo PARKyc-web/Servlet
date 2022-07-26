@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+    #show{
+      width: 300px;
+      height: 350px;
+      background-color: yellow;
+    }
+    #show > span{
+      display: inline-block;
+      width: 80px;
+      height: 25px;
+      background-color: green;
+      color:white;
+      border: 1px solid black;
+      padding: 5px;
+      margin: 2px;
+    }
+  </style>
+
+</head>
+<body>
+  <input type="text" name="userInput" id="userInput">
+  <div id="show"></div>
+  <script>
+    let word =
+    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita id provident, pariatur, reprehenderit quas repellat autem odit magni officiis temporibus, quam dolor deserunt ea dolorem aliquam facere nulla nam. Consequuntur.";
+
+    let wordList = word.split(" ");
+    let show = document.getElementById("show");
+    for(let w of wordList){
+      let span = document.createElement('span');
+      span.innerHTML = w;
+      show.append(span);
+    }
+
+    let userInput = document.querySelector("#userInput");
+
+    userInput.addEventListener("change", removeFunc);
+    let list = show.childNodes;
+
+    console.log(list[0].textContent);
+    function removeFunc(){
+      let list = show.childNodes;      
+      for(let i in list){
+        if(list[i].textContent == userInput.value){
+          console.log(list[i]);
+          console.log(i);
+          show.removeChild(show.children[i]);
+          break;
+        }
+      }
+    }
+
+
+  </script>
+
+</body>
+</html>

@@ -1,4 +1,4 @@
-package com.edu;
+package com.tst.common;
 
 import java.io.FileInputStream;
 import java.io.IOException;
