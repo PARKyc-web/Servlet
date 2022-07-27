@@ -21,6 +21,10 @@
 
 	<script>
 		alert("<%=msg%>");
+		
+	
+		
+		
 	</script>
 
 </body>
