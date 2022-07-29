@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +10,7 @@
 <body>
 
 	<h3>회원 등록</h3>
-	<form action="" method="post">
+	<form action="addMemberAjax.do" method="post" name="addFrm">
 		아이디: <input type="text" name="id"><br>
 		이름: <input type="text" name="name"><br>
 		이메일: <input type="email" name="mail"><br>
@@ -57,21 +58,56 @@
 			let tbody = document.getElementById("list");
 			
 			for(let item of data){
-				let tr = document.createElement("tr");
-				
-				for(let f of fields){
-					let td = document.createElement("td");
-					td.innerText = item[f]; // 
-					
-					tr.append(td);
-				}
-				
+				let tr = makeTr(item);				
 				tbody.append(tr);
-			}
-			
+			}			
 		}
 	}
 	
+	function makeTr(item){
+		let tr = document.createElement("tr");
+		
+		for(let f of fields){
+			let td = document.createElement("td");
+			td.innerText = item[f]; // 
+			
+			tr.append(td);
+		}
+		
+		//삭제버튼
+		let tdBtn = document.createElement("td");
+		let btn = document.createElement("button");
+		
+		//클릭 이벤트
+		btn.addEventListener("click", deleteCallBack);
+		
+		btn.innerText="삭제";
+		tdBtn.append(btn);		
+		tr.append(tdBtn);
+		
+		return tr;
+	}
+	
+	function deleteCallBack(e){
+		let delId = this.parentElement.parentElement.firstElementChild.innerText;
+		
+		console.log(delId);
+		
+		let delAjax = new XMLHttpRequest();
+		delAjax.open("post", "removeMemberAjax.do");
+		delAjax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		delAjax.send("id="+delId);
+		
+		delAjax.onload = function(){			
+			let result = JSON.parse(delAjax.responseText);			
+			if(result.retCode == 'Success'){
+				e.target.parentElement.parentElement.remove();	
+				
+			}else{
+				alert("처리중 에러 발생");
+			}			
+		}		
+	}
 	
 	function callBackTwo(){
 		if (this.readyState == 4 && this.status == 200) {
@@ -109,6 +145,38 @@
 			document.querySelector('body').append(name, age);
 			}
 		}
+	
+	//form 전송이벤트가 실행이 되면 발생하는 이벤트
+	//document.forms.addFrm.addEventListner('submit', function)
+	document.forms.addFrm.onsubmit = function(e){
+		// 기본기능, 차단
+		e.preventDefault();
+		
+		let url = document.forms.addFrm.getAttribute('action');
+		let id = document.forms.addFrm.id.value;
+		let passwd = document.forms.addFrm.passwd.value;
+		let name = document.forms.addFrm.name.value;
+		let mail = document.forms.addFrm.mail.value;
+		
+		let param = "id="+id+"&passwd="+passwd+"&name="+name+"&mail="+mail;
+		//`id=${id}&passwd=${passwd}&name=${name}&mail=${mail}`;
+		
+		console.log(param);
+		
+		let addAjax = new XMLHttpRequest();
+		addAjax.open('post', url);
+		
+		addAjax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		addAjax.send(param); //id=user1&passwd=1234&name=Hong&mail=email@naver.com
+		
+		addAjax.onload = function(){
+			console.log(addAjax.responseText);			
+			let data = JSON.parse(addAjax.responseText); // JSON -> Object
+			
+			document.getElementById('list').append(makeTr(data));
+		}
+	}
+	
 	</script>
 
 

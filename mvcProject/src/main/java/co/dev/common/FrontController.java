@@ -10,12 +10,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import co.dev.controller.AddMemberAjaxController;
 import co.dev.controller.MemberDeleteController;
 import co.dev.controller.MemberInsertController;
 import co.dev.controller.MemberJsonController;
 import co.dev.controller.MemberListController;
 import co.dev.controller.MemberSearchController;
 import co.dev.controller.MemberUpdateController;
+import co.dev.controller.RemoveMemberAjaxController;
 
 public class FrontController extends HttpServlet{
 
@@ -34,6 +36,10 @@ public class FrontController extends HttpServlet{
 		mappings.put("/memberUpdate.do", new MemberUpdateController());
 		mappings.put("/memberDelete.do", new MemberDeleteController());
 		mappings.put("/memberJson.do", new MemberJsonController());
+		
+		// Ajax 입력
+		mappings.put("/addMemberAjax.do", new AddMemberAjaxController());
+		mappings.put("/removeMemberAjax.do", new RemoveMemberAjaxController());
 	}
 	
 	@Override

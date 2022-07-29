@@ -10,7 +10,7 @@
 <body>
 	<h3>회원가입</h3>
 
-	<form action="../memberInsert.do" method="post">
+	<form action="${pageContext.request.contextPath}/memberInsert.do" method="post">
 
 		아이디: <input type="text" name="id"><br> 
 		비밀번호: <input type="password" name="passwd"><br>

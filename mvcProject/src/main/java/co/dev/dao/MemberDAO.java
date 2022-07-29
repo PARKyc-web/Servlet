@@ -148,15 +148,16 @@ public class MemberDAO {
 		}
 	}
 	
-	public void deleteMember(String id) {
+	public boolean deleteMember(String id) {
 		String sql = "DELETE member WHERE id = ?";	
 		
+		int result =0;
 		try {
 			connect();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			
-			int result = pstmt.executeUpdate();			
+			result = pstmt.executeUpdate();			
 			System.out.println("정상적으로 " + result + "건이 수정되었습니다");			
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -164,6 +165,8 @@ public class MemberDAO {
 		}finally {
 			disconnect();
 		}
+		
+		return (result>0) ? true : false;
 	}
 	
 	
