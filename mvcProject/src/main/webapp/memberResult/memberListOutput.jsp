@@ -21,6 +21,7 @@
 				</tr>
 			</c:forEach>	
 	</table>
+	<jsp:include page="home.jsp"></jsp:include>
 
 </body>
 </html>

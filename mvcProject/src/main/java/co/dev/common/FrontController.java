@@ -2,18 +2,20 @@ package co.dev.common;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import co.dev.service.MemberService;
-import co.dev.vo.MemberVO;
+import co.dev.controller.MemberDeleteController;
+import co.dev.controller.MemberInsertController;
+import co.dev.controller.MemberJsonController;
+import co.dev.controller.MemberListController;
+import co.dev.controller.MemberSearchController;
+import co.dev.controller.MemberUpdateController;
 
 public class FrontController extends HttpServlet{
 
@@ -29,7 +31,9 @@ public class FrontController extends HttpServlet{
 		mappings.put("/memberInsert.do", new MemberInsertController());
 		mappings.put("/memberList.do", new MemberListController());
 		mappings.put("/memberSearch.do", new MemberSearchController());
-//		mappings.put("/memberUpdate.do", new MemberUpdateController());
+		mappings.put("/memberUpdate.do", new MemberUpdateController());
+		mappings.put("/memberDelete.do", new MemberDeleteController());
+		mappings.put("/memberJson.do", new MemberJsonController());
 	}
 	
 	@Override

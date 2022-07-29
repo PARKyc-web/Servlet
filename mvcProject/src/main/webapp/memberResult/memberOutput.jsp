@@ -11,6 +11,6 @@
 <body>
 
 	<h3>${member.name}님의 회원가입을 축하합니다!.</h3>
-	
+	<jsp:include page="home.jsp"></jsp:include>
 </body>
 </html>

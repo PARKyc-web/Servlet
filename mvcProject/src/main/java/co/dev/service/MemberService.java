@@ -32,4 +32,12 @@ public class MemberService {
 		return dao.searchMember(id);
 	}
 	
+	public void modifyMember(MemberVO vo) {
+		dao.updateMember(vo);
+	}
+	
+	public void removeMember(String id) {
+		dao.deleteMember(id);
+	}
+	
 }
